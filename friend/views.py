@@ -75,11 +75,14 @@ def add_friend(request, pk):
         'uid': urlsafe_base64_encode(force_bytes(user.pk))
     })
     to_email = to_user.email
-    f = Friend(from_user=from_user, to_user=to_user, status="pending")
+    f = Friend(from_user=from_user.email, to_user=to_user, status="pending")
     context = {'name': name, 'first_name': to_user.first_name, 'last_name': to_user.last_name}
     email = EmailMessage(email_subject, message, from_user.email, to=[to_email])
     email.send()
-    if not (f.from_user and f.to_user):
+    t = f.from_user and f.to_user or f.from_user == f.to_user
+    print("From user:", from_user)
+    print("To user:", to_user)
+    if t:
         return HttpResponseRedirect(reverse(friend_list))
     else:
         f.save()
