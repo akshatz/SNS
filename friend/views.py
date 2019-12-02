@@ -46,7 +46,7 @@ def accept_friend_request(request, uidb64, status):
     try:
         to_user = request.user.id
         uid = force_bytes(urlsafe_base64_decode(uidb64)).decode()
-        friends = Friend.objects.all()
+        friends = Friend.objects.get(id = request.user.id, to_user=Friend.to_user.id)
         for f in friends:
             if f:
                 f.status = "accepted"
@@ -77,11 +77,11 @@ def add_friend(request, pk):
     to_email = to_user.email
     f = Friend(from_user=from_user, to_user=to_user, status="pending")
     context = {'name': name, 'first_name': to_user.first_name, 'last_name': to_user.last_name}
-    if (f.from_user and f.to_user or (f.to_user == f.from_user)):
+    email = EmailMessage(email_subject, message, from_user.email, to=[to_email])
+    email.send()
+    if not (f.from_user and f.to_user):
         return HttpResponseRedirect(reverse(friend_list))
     else:
-        email = EmailMessage(email_subject, message, from_user.email, to=[to_email])
-        email.send()
         f.save()
         return render(request, 'friend/sent_friend_request_success.html', context)
 

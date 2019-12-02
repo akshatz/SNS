@@ -11,8 +11,8 @@ class Friend(models.Model, LoginRequiredMixin):
     status = models.CharField(max_length=10)
     from_user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name = 'from_user')
     to_user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="to_user")
-    date_modified = models.DateTimeField(auto_now=True, blank=True)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    date_modified = models.DateTimeField(auto_now=True, null=True,blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
 
     def create(self,request, **kwargs):
         friend = self.create(from_user_id=request.user.id, status="pending")
