@@ -15,7 +15,7 @@ class User(AbstractUser):
     """
     email = models.EmailField(max_length=255, unique=True)
     dateofbirth = models.DateField(null=True)
-    friend_id = models.ManyToManyField('self')
+    # friend_id = models.ManyToManyField('self')
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
