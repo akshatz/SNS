@@ -87,22 +87,22 @@ a.article-title:hover {
 word-break:break-all;
 }
 
-#friends {
+.friends {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
 
-#friends td, #friends th {
+.friends td, .friends th {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-#friends tr:nth-child(even){background-color: #f2f2f2;}
+.friends tr:nth-child(even){background-color: #f2f2f2;}
 
-#friends tr:hover {background-color: #ddd;}
+.friends tr:hover {background-color: #ddd;}
 
-#friends th {
+.friends th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
